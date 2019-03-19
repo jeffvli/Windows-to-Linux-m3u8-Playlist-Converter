@@ -28,8 +28,8 @@ function Import-SubsonicPlaylist {
             }
 
             $PlaylistTemp = (Get-Content -Path $Playlist.FullName -Encoding UTF8) | ForEach-Object {
-            $_ -replace $OriginalPath, $SubsonicPath `
-            -replace '\\', '/'
+                $_ -replace $OriginalPath, $SubsonicPath `
+                -replace '\\', '/'
             }
 
             $FileNameTemp = $Playlist.Name
@@ -39,9 +39,8 @@ function Import-SubsonicPlaylist {
                 if (!(Join-Path -Path $BackupPath -ChildPath $Date)) {
                     New-Item -Path (Join-Path -Path $BackupPath -ChildPath $Date) -ItemType Directory -ErrorAction SilentlyContinue
                 }
-                $PlaylistTemp | Out-File -FilePath "H:\Playlist\Backup\$Date\$FileNameTemp.m3u8" -Force -Encoding UTF8
+                $PlaylistTemp | Out-File -FilePath (Join-Path $BackupPath -ChildPath "$PlaylistPath\Backup\$Date\$FileNameTemp") -Force -Encoding UTF8 # Overwrite
             }
-            
         }
     }
 }
