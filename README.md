@@ -1,1 +1,1 @@
-# Import-m3u8-playlist-to-Subsonic
+# Foobar2000-to-Subsonic-Playlist-conversion
