@@ -45,5 +45,5 @@ function Import-SubsonicPlaylist {
     }
 }
 
-# EXAMPLE
+# EXAMPLE Test
 # Import-SubsonicPlaylist -PlaylistPath 'H:\Playlist\' -OriginalPath 'H:\\Songs\\' -SubsonicPath '/data/Music/Songs/'
