@@ -1,25 +1,49 @@
-$ImportDirectory = 'H:\Playlist'
-$WindowsDirectory = 'H:\\Songs\\'
-$SubsonicDirectory = '/data/Music/Songs/'
-$Date = (Get-Date).ToString("yyyy-MM-dd")
+function Import-SubsonicPlaylist {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [string]$PlaylistPath,
 
-$PlaylistFiles = (Get-ChildItem $ImportDirectory -Filter *.m3u8)
-New-Item -Path "H:\Playlist\Backup\$Date" -ItemType Directory
+        [Parameter(Mandatory=$true, Position=1)]
+        [string]$OriginalPath,
 
-foreach ($Playlist in $PlaylistFiles) {
-    if ((Get-Content -Path $Playlist.Fullname -First 1) -ne '#EXTM3U') {  
-        $PlaylistTemp = Get-Content -Path $Playlist.FullName -Encoding UTF8
-        
-        Set-Content -Path $Playlist.FullName -Value '#EXTM3U' -Encoding UTF8 # Add first line #EXTM3U
-        Add-Content -Path $Playlist.FullName -Value $PlaylistTemp -Encoding UTF8 # Add rest of the lines
+        [Parameter(Mandatory=$true, Position=2)]
+        [string]$SubsonicPath,
+
+        [Parameter(Mandatory=$false, Position=3)]
+        [string]$BackupPath
+    )
+
+    begin {
+        $Date = (Get-Date).ToString("yyyy-MM-dd")
+        $PlaylistFiles = (Get-ChildItem $PlaylistPath -Filter *.m3u8)
     }
 
-    $PlaylistTemp = (Get-Content -Path $Playlist.FullName -Encoding UTF8) | ForEach-Object {
-    $_ -replace $WindowsDirectory, $SubsonicDirectory `
-       -replace '\\', '/'
-    }
+    process {
+        foreach ($Playlist in $PlaylistFiles) {
+            if ((Get-Content -Path $Playlist.Fullname -First 1) -ne '#EXTM3U') {  
+                $PlaylistTemp = Get-Content -Path $Playlist.FullName -Encoding UTF8
+                Set-Content -Path $Playlist.FullName -Value '#EXTM3U' -Encoding UTF8 # Add first line #EXTM3U
+                Add-Content -Path $Playlist.FullName -Value $PlaylistTemp -Encoding UTF8 # Add rest of the lines
+            }
 
-    $FileName = $Playlist.BaseName
-    $PlaylistTemp | Out-File -FilePath "H:\Playlist\$FileName.m3u8" -Force -Encoding UTF8
-    $PlaylistTemp | Out-File -FilePath "H:\Playlist\Backup\$Date\$Filename.m3u8" -Force -Encoding UTF8
+            $PlaylistTemp = (Get-Content -Path $Playlist.FullName -Encoding UTF8) | ForEach-Object {
+                $_ -replace $OriginalPath, $SubsonicPath `
+                -replace '\\', '/'
+            }
+
+            $FileNameTemp = $Playlist.Name
+            $FileName = Join-Path -Path $PlaylistPath -ChildPath $FileNameTemp
+            $PlaylistTemp | Out-File -FilePath $FileName -Force -Encoding UTF8
+            if ($BackupPath) {
+                if (!(Join-Path -Path $BackupPath -ChildPath $Date)) {
+                    New-Item -Path (Join-Path -Path $BackupPath -ChildPath $Date) -ItemType Directory -ErrorAction SilentlyContinue
+                }
+                $PlaylistTemp | Out-File -FilePath (Join-Path $BackupPath -ChildPath "$Date\$FileNameTemp" -ChildPath) -Force -Encoding UTF8 # Overwrite
+            }
+        }
+    }
 }
+
+# EXAMPLE
+# Import-SubsonicPlaylist -PlaylistPath 'H:\Playlist\' -OriginalPath 'H:\\Songs\\' -SubsonicPath '/data/Music/Songs/' -BackupPath 'H:\Playlist\Backup\'
