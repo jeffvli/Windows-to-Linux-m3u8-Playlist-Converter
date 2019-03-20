@@ -1,1 +1,2 @@
 # Foobar2000-to-Subsonic-Playlist-conversion
+PowerShell script to convert Windows m3u8 playlist to work on Subsonic with linux subdirectories. The music files in the subdirectories must be under the same root directory in Windows (EX: H:\Songs\...)
