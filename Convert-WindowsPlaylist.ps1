@@ -36,7 +36,7 @@ function Convert-WindowsPlaylist {
             $FileName = Join-Path -Path $PlaylistPath -ChildPath $FileNameTemp
             $PlaylistTemp | Out-File -FilePath $FileName -Force -Encoding UTF8
             if ($BackupPath) {
-                if (!(Join-Path -Path $BackupPath -ChildPath $Date)) {
+                if (!(Test-Path (Join-Path -Path $BackupPath -ChildPath $Date))) {
                     New-Item -Path (Join-Path -Path $BackupPath -ChildPath $Date) -ItemType Directory -ErrorAction SilentlyContinue
                 }
                 $PlaylistTemp | Out-File -FilePath (Join-Path $BackupPath -ChildPath "$Date\$FileNameTemp" -ChildPath) -Force -Encoding UTF8 # Overwrite
