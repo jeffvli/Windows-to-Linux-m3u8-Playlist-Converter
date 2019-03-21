@@ -1,4 +1,4 @@
-# Foobar2000-to-Subsonic-Playlist-conversion
+# Windows-to-Linux-m3u8-Playlist-Conversion
 Connvert Windows m3u8 playlist to alternative Linux mount subdirectories. 
 
 ## Usage
