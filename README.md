@@ -15,5 +15,6 @@ Convert-WindowsPlaylist -PlaylistPath 'H:\Playlist\' -OriginalPath 'H:\\Songs\\'
 ```
 
 ## To do
-- [x] Convert m3u8 playlists to new directory
+- [x] Convert m3u8 playlists
+- [x] Allow backup playlist directory
 - [ ] Detect when new playlists have been added to directory and automatically run conversion
