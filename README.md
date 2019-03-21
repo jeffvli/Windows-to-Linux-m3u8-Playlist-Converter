@@ -13,3 +13,7 @@ Linux instance: `/data/Music/Songs/...`
 ```
 Convert-WindowsPlaylist -PlaylistPath 'H:\Playlist\' -OriginalPath 'H:\\Songs\\' -NewPath '/data/Music/Songs/' -BackupPath 'H:\Playlist\Backup\'
 ```
+
+## To do
+- [x] Convert m3u8 playlists to new directory
+- [ ] Detect when new playlists have been added to directory and automatically run conversion
