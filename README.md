@@ -8,7 +8,7 @@ Windows instance: `H:\Songs\...`
 
 Linux instance: `/data/Songs/...`
 
-EXAMPLE
+**Example**
 ```
 Convert-WindowsPlaylist -PlaylistPath 'H:\Playlist\' -OriginalPath 'H:\\Songs\\' -NewPath '/data/Music/Songs/' -BackupPath 'H:\Playlist\Backup\'
 ```
