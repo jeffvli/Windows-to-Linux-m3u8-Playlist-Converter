@@ -1,4 +1,4 @@
-function Import-SubsonicPlaylist {
+function Convert-WindowsPlaylist {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true, Position=0)]
@@ -8,7 +8,7 @@ function Import-SubsonicPlaylist {
         [string]$OriginalPath,
 
         [Parameter(Mandatory=$true, Position=2)]
-        [string]$SubsonicPath,
+        [string]$NewPath,
 
         [Parameter(Mandatory=$false, Position=3)]
         [string]$BackupPath
@@ -28,7 +28,7 @@ function Import-SubsonicPlaylist {
             }
 
             $PlaylistTemp = (Get-Content -Path $Playlist.FullName -Encoding UTF8) | ForEach-Object {
-                $_ -replace $OriginalPath, $SubsonicPath `
+                $_ -replace $OriginalPath, $NewPath `
                 -replace '\\', '/'
             }
 
@@ -44,6 +44,3 @@ function Import-SubsonicPlaylist {
         }
     }
 }
-
-# EXAMPLE
-# Import-SubsonicPlaylist -PlaylistPath 'H:\Playlist\' -OriginalPath 'H:\\Songs\\' -SubsonicPath '/data/Music/Songs/' -BackupPath 'H:\Playlist\Backup\'
