@@ -21,12 +21,12 @@ function Convert-WindowsPlaylist {
 
     process {
         foreach ($Playlist in $PlaylistFiles) {
-            if ((Get-Content -Path $Playlist.Fullname -First 1) -ne '#EXTM3U') {  
-                $PlaylistTemp = Get-Content -Path $Playlist.FullName -Encoding UTF8
-                Set-Content -Path $Playlist.FullName -Value '#EXTM3U' -Encoding UTF8 # Add first line #EXTM3U
-                Add-Content -Path $Playlist.FullName -Value $PlaylistTemp -Encoding UTF8 # Add rest of the lines
-            }
-
+            if ((Get-Content -Path $Playlist.Fullname -First 1) -ne '#EXTM3U') {
+                 Set-Content -Path $Playlist.FullName -Value '#EXTM3U' -Encoding UTF8 # Add first line #EXTM3U
+             }
+             
+            $PlaylistTemp = Get-Content -Path $Playlist.FullName -Encoding UTF8
+            Add-Content -Path $Playlist.FullName -Value $PlaylistTemp -Encoding UTF8 # Add rest of the lines
             $PlaylistTemp = (Get-Content -Path $Playlist.FullName -Encoding UTF8) | ForEach-Object {
                 $_ -replace $OriginalPath, $NewPath `
                 -replace '\\', '/'
