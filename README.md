@@ -1,8 +1,12 @@
 # Foobar2000-to-Subsonic-Playlist-conversion
-Connvert Windows m3u8 playlist to alternative Linux mount subdirectories. The music files in the subdirectories must be under the same root directory in both Windows and Linux instances.
+Connvert Windows m3u8 playlist to alternative Linux mount subdirectories. 
 
-For example:
+## Usage
+The music files in subdirectories must be under the same root directory in both Windows and Linux instances.
 
-`H:\Songs\`
+Windows instance: `H:\Songs\...`
 
-`/data/Songs/`
+Linux instance: `/data/Songs/...`
+
+EXAMPLE
+`Convert-WindowsPlaylist -PlaylistPath 'H:\Playlist\' -OriginalPath 'H:\\Songs\\' -NewPath '/data/Music/Songs/' -BackupPath 'H:\Playlist\Backup\'`
