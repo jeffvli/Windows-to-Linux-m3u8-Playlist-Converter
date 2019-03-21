@@ -1,5 +1,5 @@
 # Windows-to-Linux-m3u8-Playlist-Conversion
-Connvert Windows m3u8 playlist to alternative Linux mount subdirectories. 
+Connvert Windows m3u8 playlist to Linux mount subdirectories. 
 
 ## Usage
 The script works under the assumption that music files in are under the same root directory in both Windows and Linux instances.
