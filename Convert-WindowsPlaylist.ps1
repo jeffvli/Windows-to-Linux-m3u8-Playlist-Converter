@@ -28,8 +28,8 @@ function Convert-WindowsPlaylist {
             $PlaylistTemp = Get-Content -Path $Playlist.FullName -Encoding UTF8
             Add-Content -Path $Playlist.FullName -Value $PlaylistTemp -Encoding UTF8 # Add rest of the lines
             $PlaylistTemp = (Get-Content -Path $Playlist.FullName -Encoding UTF8) | ForEach-Object {
-                $_ -replace $OriginalPath, $NewPath `
-                -replace '\\', '/'
+                $_ -replace $OriginalPath, $NewPath ` # Replace root directory
+                -replace '\\', '/' # Replace '\' with '/'
             }
 
             $FileNameTemp = $Playlist.Name
