@@ -14,12 +14,12 @@ function Convert-WindowsPlaylist {
         [string]$BackupPath
     )
 
-    begin {
+    BEGIN {
         $Date = (Get-Date).ToString("yyyy-MM-dd")
         $PlaylistFiles = (Get-ChildItem $PlaylistPath -Filter *.m3u8)
     }
 
-    process {
+    PROCESS {
         foreach ($Playlist in $PlaylistFiles) {
             if ((Get-Content -Path $Playlist.Fullname -First 1) -ne '#EXTM3U') {
                  Set-Content -Path $Playlist.FullName -Value '#EXTM3U' -Encoding UTF8 # Add first line #EXTM3U
