@@ -1,4 +1,4 @@
-# Windows-to-Linux-m3u8-Playlist-Conversion
+# Windows-to-Linux-m3u8-Playlist-Converter
 Automated conversion of a batch of Windows m3u8 playlists to Linux mount subdirectories.
 
 ## Usage
