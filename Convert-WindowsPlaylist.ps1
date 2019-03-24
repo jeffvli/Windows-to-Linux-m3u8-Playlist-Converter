@@ -51,5 +51,3 @@ function Convert-WindowsPlaylist {
         }
     }
 }
-
-Convert-WindowsPlaylist -PlaylistPath H:\Playlist -MusicPath 'H:\\Songs\\' -NewMusicPath '/data/Music/Songs/' -BackupPath H:\Playlist\Backup -Verbose
