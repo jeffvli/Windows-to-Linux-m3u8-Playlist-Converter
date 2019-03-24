@@ -21,11 +21,11 @@ function Convert-WindowsPlaylist {
 
     PROCESS {
         foreach ($Playlist in $PlaylistFiles) {
+            $PlaylistTemp = Get-Content -Path $Playlist.FullName -Encoding UTF8
             if ((Get-Content -Path $Playlist.Fullname -First 1) -ne '#EXTM3U') {       
                 Set-Content -Path $Playlist.FullName -Value '#EXTM3U' -Encoding UTF8 # Add first line #EXTM3U
             }
 
-            $PlaylistTemp = Get-Content -Path $Playlist.FullName -Encoding UTF8
             Add-Content -Path $Playlist.FullName -Value $PlaylistTemp -Encoding UTF8 # Add rest of the lines
             $PlaylistTemp = (Get-Content -Path $Playlist.FullName -Encoding UTF8) | ForEach-Object {
                 $_ -replace $MusicPath, $NewMusicPath `
@@ -45,9 +45,11 @@ function Convert-WindowsPlaylist {
             }
 
             foreach ($Playlist in $PlaylistFiles) {
-                Copy-Item -Path $Playlist.FullName -Destination $BackupFolder
+                Copy-Item -Path $Playlist.FullName -Destination $BackupFolder -Force
                 Write-Verbose "Copying $Playlist to $BackupFolder"
             }
         }
     }
 }
+
+Convert-WindowsPlaylist -PlaylistPath H:\Playlist -MusicPath 'H:\\Songs\\' -NewMusicPath '/data/Music/Songs/' -BackupPath H:\Playlist\Backup -Verbose
