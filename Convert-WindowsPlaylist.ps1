@@ -5,10 +5,10 @@ function Convert-WindowsPlaylist {
         [string]$PlaylistPath,
 
         [Parameter(Mandatory=$true, Position=1)]
-        [string]$OriginalPath,
+        [string]$MusicPath,
 
         [Parameter(Mandatory=$true, Position=2)]
-        [string]$NewPath,
+        [string]$NewMusicPath,
 
         [Parameter(Mandatory=$false, Position=3)]
         [string]$BackupPath
@@ -21,25 +21,32 @@ function Convert-WindowsPlaylist {
 
     PROCESS {
         foreach ($Playlist in $PlaylistFiles) {
-            if ((Get-Content -Path $Playlist.Fullname -First 1) -ne '#EXTM3U') {
-                 Set-Content -Path $Playlist.FullName -Value '#EXTM3U' -Encoding UTF8 # Add first line #EXTM3U
-             }
-             
+            if ((Get-Content -Path $Playlist.Fullname -First 1) -ne '#EXTM3U') {       
+                Set-Content -Path $Playlist.FullName -Value '#EXTM3U' -Encoding UTF8 # Add first line #EXTM3U
+            }
+
             $PlaylistTemp = Get-Content -Path $Playlist.FullName -Encoding UTF8
             Add-Content -Path $Playlist.FullName -Value $PlaylistTemp -Encoding UTF8 # Add rest of the lines
             $PlaylistTemp = (Get-Content -Path $Playlist.FullName -Encoding UTF8) | ForEach-Object {
-                $_ -replace $OriginalPath, $NewPath ` # Replace root directory
-                   -replace '\\', '/' # Replace '\' with '/'
+                $_ -replace $MusicPath, $NewMusicPath `
+                   -replace '\\', '/'
             }
 
             $FileNameTemp = $Playlist.Name
             $FileName = Join-Path -Path $PlaylistPath -ChildPath $FileNameTemp
             $PlaylistTemp | Out-File -FilePath $FileName -Force -Encoding UTF8
-            if ($BackupPath) {
-                if (!(Test-Path (Join-Path -Path $BackupPath -ChildPath $Date))) {
-                    New-Item -Path (Join-Path -Path $BackupPath -ChildPath $Date) -ItemType Directory -ErrorAction SilentlyContinue
-                }
-                $PlaylistTemp | Out-File -FilePath (Join-Path $BackupPath -ChildPath "$Date\$FileNameTemp" -ChildPath) -Force -Encoding UTF8 # Overwrite
+            Write-Verbose "Wrote file $FileNameTemp to $PlaylistPath"
+        }
+
+        if ($BackupPath) {
+            $BackupFolder = Join-Path -Path $BackupPath -ChildPath $Date
+            if (!(Test-Path $BackupFolder)) {
+                New-Item -Path $BackupFolder -ItemType Directory -ErrorAction SilentlyContinue
+            }
+
+            foreach ($Playlist in $PlaylistFiles) {
+                Copy-Item -Path $Playlist.FullName -Destination $BackupFolder
+                Write-Verbose "Copying $Playlist to $BackupFolder"
             }
         }
     }
