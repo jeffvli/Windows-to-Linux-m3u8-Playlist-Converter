@@ -11,7 +11,7 @@ Windows instance: `H:\Songs\...` (You will need to use `H:\\Songs\\`)
 Linux instance: `/data/Music/Songs/...`
 
 ```
-Convert-WindowsPlaylist -PlaylistPath 'H:\Playlist\' -MusicPath 'H:\\Songs\\' -NewMusicPath '/data/Music/Songs/' -BackupPath 'H:\Playlist\Backup\'
+Convert-WindowsPlaylist -PlaylistPath 'H:\Playlist\' -MusicPath 'H:\\Songs\\' -NewMusicPath '/data/Music/Songs/' -BackupPath 'H:\Playlist\Backup\ -Verbose'
 ```
 
 ## To do
