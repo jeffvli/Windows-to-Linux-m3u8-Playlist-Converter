@@ -6,7 +6,7 @@ The script works under the assumption that music files in are under the same roo
 
 ### Example
 
-Windows instance: `H:\Songs\...`
+Windows instance: `H:\Songs\...` (You will need to use `H:\\Songs\\`)
 
 Linux instance: `/data/Music/Songs/...`
 
