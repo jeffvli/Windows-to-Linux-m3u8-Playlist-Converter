@@ -2,7 +2,7 @@
 Automated conversion of a batch of Windows m3u8 playlists to work on Linux subdirectories.
 
 ## How to use
-The script works under the assumption that music files in are under the same root directory in both Windows and Linux instances. Open PowerShell in a **non-elevated** prompt and run the function `Convert-WindowsPlaylist`.
+The script works under the assumption that music files are under the same root directory in both Windows and Linux instances. Open PowerShell in a **non-elevated** prompt and run the function `Convert-WindowsPlaylist`.
 
 ### Example
 
