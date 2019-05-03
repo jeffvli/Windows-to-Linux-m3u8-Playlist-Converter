@@ -5,6 +5,8 @@ Automated conversion of a batch of Windows m3u8 playlists to work on Linux subdi
 ## How to use
 The script works under the assumption that music files are under the same root directory in both Windows and Linux instances. Open PowerShell in a **non-elevated** prompt and run the function `Convert-WindowsPlaylist`.
 
+**Recommended**: Pass your command at the end of the script and save. Convert the .ps1 to an EXE using a [PS2EXE converter](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5).
+
 ### Example
 
 Windows instance: `H:\Songs\...` (You will need to use `H:\\Songs\\`)
