@@ -1,6 +1,6 @@
 # Windows-to-Linux-m3u8-Playlist-Converter
 Automated conversion of a batch of Windows m3u8 playlists to work on Linux subdirectories.
-![demo](https://github.com/jeffvli/Windows-to-Linux-m3u8-Playlist-Converter/blob/master/demo/FirstPiercingEarwig.gif?raw=true)
+![demo](https://github.com/jeffvli/Windows-to-Linux-m3u8-Playlist-Converter/blob/master/convert-demo.gif?raw=true)
 
 ## How to use
 The script works under the assumption that music files are under the same root directory in both Windows and Linux instances. Open PowerShell in a **non-elevated** prompt and run the function `Convert-WindowsPlaylist`.
